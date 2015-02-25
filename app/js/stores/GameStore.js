@@ -68,7 +68,8 @@ Store.dispatchToken = AppDispatcher.register( function eventHandlers(evt){
             }
 
             //
-            clickNeighbors( arrRows, cell );
+            if( cell.bombCount == 0)
+                clickNeighbors( arrRows, cell );
 
             isNewGame = false;
 
@@ -250,14 +251,10 @@ function clickNeighbors( rows, targetCell ) {
   
   var spots = findNeighbors(rows, targetCell.info.row, targetCell.info.col);
   
-  console.log( '鄰居數量: ', spots.length );
-  
   var cells = spots.map( function(spot) {
     return rows[spot.row][spot.col];
   });
   
-  console.log( 'cells: ', cells );
-
   //
   cells.forEach( function(cell) {
   
