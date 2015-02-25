@@ -1,5 +1,10 @@
 
-## How to run
+## Run the game
+
+	http://coodoo.github.io/sweep/
+
+
+## How to build
 
 	$ npm install 
 
