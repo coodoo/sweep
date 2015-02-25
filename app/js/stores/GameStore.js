@@ -41,6 +41,7 @@ objectAssign( Store, EventEmitter.prototype, {
     noop: function(){}
 });
 
+//
 Store.dispatchToken = AppDispatcher.register( function eventHandlers(evt){
 
     var action = evt.action;
@@ -151,7 +152,7 @@ Store.dispatchToken = AppDispatcher.register( function eventHandlers(evt){
 var arrRows;
 
 // number of cells per row
-var size = 3;
+var size = 8;
 
 // how difficult the game is, the higher the harder
 var level = 0.3;
@@ -243,26 +244,35 @@ function findNeighbors(rows, i, j) {
   })
 }
 
+//
 function clickNeighbors( rows, targetCell ) {
   var me = this;
   
   var spots = findNeighbors(rows, targetCell.info.row, targetCell.info.col);
   
+  console.log( '鄰居數量: ', spots.length );
+  
   var cells = spots.map( function(spot) {
     return rows[spot.row][spot.col];
   });
+  
+  console.log( 'cells: ', cells );
 
   //
   cells.forEach( function(cell) {
+  
     if (cell != targetCell &&
         !cell.isClicked &&
-        !cell.isBomb &&
-        cell.bombCount == 0) {
+        !cell.isBomb /*&&
+        cell.bombCount == 0*/) {
 
             cell.isClicked = true;
             cell.isFlagged = false;
-            clickNeighbors(rows, cell);
+            
+            if(cell.bombCount == 0)
+                clickNeighbors(rows, cell);
     }
+  
   }.bind(this))
 }
 
